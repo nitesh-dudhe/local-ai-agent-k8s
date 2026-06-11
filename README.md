@@ -4,7 +4,7 @@
 * **Inference Engine:** Ollama running completely locally within the default namespace.
 * **LLM Engine:** `gemma4:e4b` (3.65 GB edge-optimized model).
 * **Agent Controller:** kagent-controller utilising local OpenAI-compatible routing schemes backed by a persistent PostgreSQL instance.
-* **Working Status:** Though it may require the GPU-integrated cluster, have made it worked with extra CPUs, so it may take time to respond to simple prompts also
+* **Working Status:** Though it may require the GPU-integrated cluster, have made it worked with extra CPUs(e2-standard-16), so it may take time to respond to simple prompts also
 ---
 
 ## 🚀 Step-by-Step Deployment
@@ -143,6 +143,44 @@ Test your offline agent infrastructure using standard interactive chat strings o
 * 💬 `"Hello! Tell me a one-sentence joke."`
 * ☸️ `"What API resources are running in my cluster?"`
 
+
+## 🧹 Clean up the Lab
+To avoid unexpected cloud billing or draining your remaining free tier credits when your testing is complete, make sure to completely purge all infrastructure components from your Google Cloud environment.
+
+1. Remove Local Kubernetes Services
+Cleanly drop the deployments, database storage elements, and the local model engine before decommissioning the underlying hardware.
+
+```bash
+# Terminate the background port-forward tunnel
+pkill -f "port-forward service/kagent-ui"
+
+# Uninstall kagent Helm packages
+helm uninstall kagent -n kagent
+helm uninstall kagent-crds -n kagent
+
+# Delete workloads and dedicated configurations
+kubectl delete -f ollama-gemma.yml
+kubectl delete -f model-config.yml
+kubectl delete secret kagent-openai -n kagent
+kubectl delete namespace kagent
 ```
 
+
+
+2. Nuke the GKE Cluster Footprint
+This command tears down the control planes, drops the compute instance node pools, releases your vCPU capacity limits, and releases any persistent load balancer IPs.
+
+```bash
+gcloud container clusters delete [your-cluster-name] --zone=[your zone] --quiet
+```
+
+3. Verify Clean Tear Down
+Run these brief diagnostic checks to confirm no trailing resources remain on your GCP dashboard:
+
+```bash
+# Ensure no orphaned worker node VMs are still up
+gcloud compute instances list
+
+# Ensure no persistent load balancer endpoints are still charging hourly rates
+gcloud compute forwarding-rules list
 ```
