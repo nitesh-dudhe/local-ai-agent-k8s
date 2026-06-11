@@ -4,7 +4,7 @@
 * **Inference Engine:** Ollama running completely locally within the default namespace.
 * **LLM Engine:** `gemma4:e4b` (3.65 GB edge-optimized model).
 * **Agent Controller:** kagent-controller utilising local OpenAI-compatible routing schemes backed by a persistent PostgreSQL instance.
-* **Though it may require the GPU-integrated cluster, have made it worked with extra CPUs.
+* **Working Status:** Though it may require the GPU-integrated cluster, have made it worked with extra CPUs, so it may take time to respond to simple prompts also
 ---
 
 ## 🚀 Step-by-Step Deployment
