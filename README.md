@@ -181,6 +181,9 @@ Run these brief diagnostic checks to confirm no trailing resources remain on you
 # Ensure no orphaned worker node VMs are still up
 gcloud compute instances list
 
+# Ensure no clusters are running
+gcloud container clusters list
+
 # Ensure no persistent load balancer endpoints are still charging hourly rates
 gcloud compute forwarding-rules list
 ```
