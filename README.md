@@ -48,17 +48,16 @@ The underlying client SDKs require credential structures to be initialised safel
 Create the cluster secret:
 
 ```bash
+# Install Schema CRDs
+helm upgrade --install kagent-crds oci://ghcr.io/kagent-dev/kagent/helm/kagent-crds \
+  --namespace kagent \
+  --create-namespace
+
 kubectl create secret generic kagent-openai \
   --namespace kagent \
   --from-literal=OPENAI_API_KEY="dummy-key" \
   --dry-run=client -o yaml | kubectl apply -f -
 
-```
-
-Apply the unified model tracking target parameters:
-
-```bash
-kubectl apply -f model-config.yml
 ```
 
 ---
@@ -68,12 +67,8 @@ kubectl apply -f model-config.yml
 Install the required Custom Resource Definitions (CRDs) along with the core application components using Helm.
 
 ```bash
-# 1. Install Schema CRDs
-helm upgrade --install kagent-crds oci://ghcr.io/kagent-dev/kagent/helm/kagent-crds \
-  --namespace kagent \
-  --create-namespace
 
-# 2. Install the Core Controller and UI Web Engine
+# Install the Core Controller and UI Web Engine
 helm install kagent oci://ghcr.io/kagent-dev/kagent/helm/kagent \
   --namespace kagent \
   --set postgresql.enabled=true \
@@ -82,6 +77,12 @@ helm install kagent oci://ghcr.io/kagent-dev/kagent/helm/kagent \
   --set providers.openai.apiKey="dummy-key" \
   --set providers.openai.baseUrl="[http://ollama-internal-svc.default.svc.cluster.local:11434/v1](http://ollama-internal-svc.default.svc.cluster.local:11434/v1)"
 
+```
+
+Apply the unified model tracking target parameters:
+
+```bash
+kubectl apply -f model-config.yml
 ```
 
 ---
@@ -107,7 +108,7 @@ Follow the interactive onboarding wizard screen by screen to configure your loca
          │
          ▼
 ┌──────────────────────────────────────────────┐
-│ Step 1: Configure AI Model                   │  ► Choose an existing model (e.g., gpt-4.1-mini)
+│ Step 1: Configure AI Model                   │  ► Choose an existing model (gemma4:e4b)
 └────────────────────────┬─────────────────────┘
                          │
                          ▼
