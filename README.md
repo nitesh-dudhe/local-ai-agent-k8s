@@ -144,6 +144,15 @@ Test your offline agent infrastructure using standard interactive chat strings o
 * 💬 `"Hello! Tell me a one-sentence joke."`
 * ☸️ `"What API resources are running in my cluster?"`
 
+## Kagent in action  
+
+<img width="1471" height="1408" alt="kagent-in-action-01" src="https://github.com/user-attachments/assets/35647298-bba6-41c8-8f58-1fa6b3181b70" />
+
+<img width="1472" height="1349" alt="kagent-in-action-02" src="https://github.com/user-attachments/assets/3b06514b-78b8-4580-afea-4476dc4f595b" />
+
+<img width="1855" height="1412" alt="kagent-in-action-03" src="https://github.com/user-attachments/assets/3345eefd-2268-4dde-8c8f-fda67cf983ce" />
+
+<img width="1854" height="1355" alt="kagent-in-action-04" src="https://github.com/user-attachments/assets/30ded5d5-5794-4e07-a16e-4ad45d57ca13" />
 
 ## 🧹 Clean up the Lab
 To avoid unexpected cloud billing or draining your remaining free tier credits when your testing is complete, make sure to completely purge all infrastructure components from your Google Cloud environment.
